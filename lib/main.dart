@@ -5,7 +5,7 @@ void main() {
 }
 
 class HomeworkApp extends StatelessWidget {
-  const HomeworkApp({Key? key}): super(key: key);
+  const HomeworkApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +31,7 @@ class _HomePageState extends State<HomePage> {
   String displayAmount = "";
   String errorTextValue = "";
   double exchangeRate = 4.5;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,56 +39,47 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(
-              height: 300,
-              child: Image.asset("assets/images/bani.jpg")),
+          Container(height: 300, child: Image.asset("assets/images/bani.jpg")),
           Container(
             padding: EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 10.0),
             child: TextField(
               controller: _textController,
-              keyboardType: const TextInputType.numberWithOptions(
-                decimal: true
-              ),
+              keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
               keyboardAppearance: Brightness.light,
               decoration: InputDecoration(
-                hintText: "enter the amount in EUR",
-                errorText: errorTextValue.isEmpty? null: errorTextValue
-              ),
+                  hintText: "enter the amount in EUR",
+                  errorText: errorTextValue.isEmpty ? null : errorTextValue),
             ),
           ),
           MaterialButton(
-              onPressed: (){
+              onPressed: () {
                 setState(() {
                   String inputAmount = _textController.text;
                   double? amount;
-                  if(inputAmount=="."){
-                   amount = 0.0;
-                  }else{
+                  if (inputAmount == ".") {
+                    amount = 0.0;
+                  } else {
                     amount = double.tryParse(inputAmount);
                   }
-                  if(amount == null){
+                  if (amount == null) {
                     errorTextValue = "please enter a number";
                     displayAmount = '';
-                  }else{
+                  } else {
                     amount = amount * exchangeRate;
                     errorTextValue = '';
                     displayAmount = amount.toString();
                   }
                 });
-
               },
               color: Colors.grey,
               child: Text("Convert!")),
-
           Text(
-              displayAmount,
-            style: const TextStyle(
-              fontSize: 30
-            ),
+            displayAmount,
+            style: const TextStyle(fontSize: 30),
           )
         ],
       ),
     );
   }
 }
-
